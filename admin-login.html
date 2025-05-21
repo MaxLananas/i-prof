@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Prof - Administration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/admin-login.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-logo">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogowik.com%2Fcontent%2Fuploads%2Fimages%2Fministere-de-leducation-nationale-et-de-la-jeunesse6395.logowik.com.webp&f=1&nofb=1&ipt=b1ed3ee914e44a2e9529ee1663fffe723475d403a9d250cb40515d42761a9820" alt="Logo Ministère de l'Éducation nationale">
+                    <div class="header-title">
+                        <h1>I-Prof Administration</h1>
+                        <p>Gestion du système</p>
+                    </div>
+                </div>
+                <div class="header-links">
+                    <a href="index.html">Retour au site</a>
+                    <a href="aide.html">Aide</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Connexion administrateur</h2>
+                <p>Veuillez vous authentifier pour accéder à l'espace d'administration</p>
+            </div>
+
+            <div class="login-alert" id="login-error">
+                <i class="fas fa-exclamation-circle"></i> Identifiant ou mot de passe incorrect.
+            </div>
+
+            <form class="login-form" id="admin-login-form">
+                <div class="form-group">
+                    <label for="username">Identifiant</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="username" placeholder="Identifiant administrateur" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+                        <span class="password-toggle" id="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Se souvenir de moi pendant 30 jours</label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <p>En cas de difficulté pour vous connecter, veuillez contacter le <a href="mailto:support-technique@education.gouv.fr">support technique</a>.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ministère de l'Éducation nationale - Interface d'administration I-Prof - <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+    <script src="./js/admin-login.js"></script>
+</body>
+</html>

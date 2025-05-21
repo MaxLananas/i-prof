@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Prof - Tableau de bord d'administration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/admin-dasboard.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-logo">
+                    <img src="https://education.gouv.fr/themes/custom/bea_theme/logo.svg" alt="Logo Ministère de l'Éducation nationale">
+                    <div class="header-title">
+                        <h1>I-Prof Administration</h1>
+                        <p>Tableau de bord</p>
+                    </div>
+                </div>
+                <div class="header-user">
+                    <div class="user-info">
+                        <h3>Admin Système</h3>
+                        <p>Administrateur</p>
+                    </div>
+                    <div class="user-actions">
+                        <div class="user-dropdown-btn" id="user-dropdown-btn">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <ul>
+                                <li><a href="#"><i class="fas fa-user-circle"></i> Mon profil</a></li>
+                                <li><a href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
+                                <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                                <li><a href="admin-login.html"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> <span>Tableau de bord</span></a></li>
+                    <li><a href="#" data-section="users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="#" data-section="academies"><i class="fas fa-university"></i> <span>Académies</span></a></li>
+                    <li><a href="#" data-section="formations"><i class="fas fa-graduation-cap"></i> <span>Formations</span></a></li>
+                    <li><a href="#" data-section="mutations"><i class="fas fa-exchange-alt"></i> <span>Mutations</span></a></li>
+                </ul>
+                <div class="sidebar-heading">Administration</div>
+                <ul>
+                    <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> <span>Paramètres</span></a></li>
+                    <li><a href="#" data-section="logs"><i class="fas fa-history"></i> <span>Journaux</span></a></li>
+                    <li><a href="#" data-section="backups"><i class="fas fa-database"></i> <span>Sauvegardes</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Section Tableau de bord -->
+            <section id="dashboard-section" class="content-section">
+                <div class="page-header">
+                    <h2>Tableau de bord</h2>
+                    <p>Vue d'ensemble du système I-Prof</p>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Utilisateurs</h3>
+                            <p>854,219</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Formations</h3>
+                            <p>3,742</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Demandes de mutation</h3>
+                            <p>42,185</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Incidents</h3>
+                            <p>12</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Activité des utilisateurs</h3>
+                            <div class="actions">
+                                <div class="action-icon"><i class="fas fa-redo-alt"></i></div>
+                                <div class="action-icon"><i class="fas fa-ellipsis-v"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="users-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Répartition par académie</h3>
+                            <div class="actions">
+                                <div class="action-icon"><i class="fas fa-redo-alt"></i></div>
+                                <div class="action-icon"><i class="fas fa-ellipsis-v"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="academies-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Activités récentes</h3>
+                        <div class="actions">
+                            <a href="#" class="btn btn-outline btn-sm">Voir tout</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+                                        <th>Action</th>
+                                        <th>Date</th>
+                                        <th>Statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Martin Sophie</td>
+                                        <td>Connexion au système</td>
+                                        <td>21/05/2025 10:23</td>
+                                        <td><span class="badge badge-success">Réussi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dubois Jean</td>
+                                        <td>Demande de formation</td>
+                                        <td>21/05/2025 09:45</td>
+                                        <td><span class="badge badge-info">En attente</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Leroy Emma</td>
+                                        <td>Mise à jour du profil</td>
+                                        <td>21/05/2025 09:12</td>
+                                        <td><span class="badge badge-success">Réussi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Garcia Thomas</td>
+                                        <td>Réinitialisation du mot de passe</td>
+                                        <td>20/05/2025 18:36</td>
+                                        <td><span class="badge badge-warning">En cours</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bernard Marie</td>
+                                        <td>Demande de mutation</td>
+                                        <td>20/05/2025 15:20</td>
+                                        <td><span class="badge badge-success">Réussi</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Utilisateurs -->
+            <section id="users-section" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h2>Gestion des utilisateurs</h2>
+                    <p>Créer, modifier et supprimer des comptes utilisateurs</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Liste des utilisateurs</h3>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" id="add-user-btn"><i class="fas fa-plus"></i> Nouvel utilisateur</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-header">
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Rechercher un utilisateur...">
+                            </div>
+                            <div class="table-actions">
+                                <button class="btn btn-outline btn-sm"><i class="fas fa-filter"></i> Filtrer</button>
+                                <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Exporter</button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Académie</th>
+                                        <th>Rôle</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>U-10021</td>
+                                        <td>Martin Sophie</td>
+                                        <td>sophie.martin@ac-versailles.fr</td>
+                                        <td>Versailles</td>
+                                        <td>Enseignant</td>
+                                        <td><span class="badge badge-success">Actif</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn btn-outline btn-sm edit-user" data-id="U-10021"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-outline btn-sm"><i class="fas fa-key"></i></button>
+                                                <button class="btn btn-danger btn-sm delete-user" data-id="U-10021"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>U-10022</td>
+                                        <td>Dubois Jean</td>
+                                        <td>jean.dubois@ac-paris.fr</td>
+                                        <td>Paris</td>
+                                        <td>Enseignant</td>
+                                        <td><span class="badge badge-success">Actif</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn btn-outline btn-sm edit-user" data-id="U-10022"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-outline btn-sm"><i class="fas fa-key"></i></button>
+                                                <button class="btn btn-danger btn-sm delete-user" data-id="U-10022"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>U-10023</td>
+                                        <td>Leroy Emma</td>
+                                        <td>emma.leroy@ac-lyon.fr</td>
+                                        <td>Lyon</td>
+                                        <td>Gestionnaire</td>
+                                        <td><span class="badge badge-success">Actif</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn btn-outline btn-sm edit-user" data-id="U-10023"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-outline btn-sm"><i class="fas fa-key"></i></button>
+                                                <button class="btn btn-danger btn-sm delete-user" data-id="U-10023"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>U-10024</td>
+                                        <td>Garcia Thomas</td>
+                                        <td>thomas.garcia@ac-bordeaux.fr</td>
+                                        <td>Bordeaux</td>
+                                        <td>Enseignant</td>
+                                        <td><span class="badge badge-warning">En attente</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn btn-outline btn-sm edit-user" data-id="U-10024"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-outline btn-sm"><i class="fas fa-key"></i></button>
+                                                <button class="btn btn-danger btn-sm delete-user" data-id="U-10024"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>U-10025</td>
+                                        <td>Bernard Marie</td>
+                                        <td>marie.bernard@ac-lille.fr</td>
+                                        <td>Lille</td>
+                                        <td>Enseignant</td>
+                                        <td><span class="badge badge-danger">Inactif</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn btn-outline btn-sm edit-user" data-id="U-10025"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-outline btn-sm"><i class="fas fa-key"></i></button>
+                                                <button class="btn btn-danger btn-sm delete-user" data-id="U-10025"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination">
+                            <div class="pagination-info">
+                                Affichage de 1 à 5 sur 854,219 entrées
+                            </div>
+                            <div class="pagination-actions">
+                                <button disabled><i class="fas fa-chevron-left"></i></button>
+                                <button class="active">1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <button>4</button>
+                                <button>5</button>
+                                <button><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Les autres sections seraient similaires -->
+        </main>
+    </div>
+
+    <!-- Modales -->
+    <div class="modal" id="add-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter un nouvel utilisateur</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-user-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="user-firstname">Prénom</label>
+                            <input type="text" class="form-control" id="user-firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-lastname">Nom</label>
+                            <input type="text" class="form-control" id="user-lastname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="user-email">Email académique</label>
+                        <input type="email" class="form-control" id="user-email" required>
+                        <div class="form-text">Format : prenom.nom@ac-academie.fr</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="user-academy">Académie</label>
+                            <select class="form-control" id="user-academy" required>
+                                <option value="">Sélectionner</option>
+                                <option value="aix-marseille">Aix-Marseille</option>
+                                <option value="amiens">Amiens</option>
+                                <option value="besancon">Besançon</option>
+                                <option value="bordeaux">Bordeaux</option>
+                                <option value="clermont">Clermont-Ferrand</option>
+                                <option value="corse">Corse</option>
+                                <option value="creteil">Créteil</option>
+                                <option value="dijon">Dijon</option>
+                                <option value="grenoble">Grenoble</option>
+                                <option value="lille">Lille</option>
+                                <option value="limoges">Limoges</option>
+                                <option value="lyon">Lyon</option>
+                                <option value="montpellier">Montpellier</option>
+                                <option value="nancy-metz">Nancy-Metz</option>
+                                <option value="nantes">Nantes</option>
+                                <option value="nice">Nice</option>
+                                <option value="orleans-tours">Orléans-Tours</option>
+                                <option value="paris">Paris</option>
+                                <option value="poitiers">Poitiers</option>
+                                <option value="reims">Reims</option>
+                                <option value="rennes">Rennes</option>
+                                <option value="rouen">Rouen</option>
+                                <option value="strasbourg">Strasbourg</option>
+                                <option value="toulouse">Toulouse</option>
+                                <option value="versailles">Versailles</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-role">Rôle</label>
+                            <select class="form-control" id="user-role" required>
+                                <option value="">Sélectionner</option>
+                                <option value="enseignant">Enseignant</option>
+                                <option value="gestionnaire">Gestionnaire</option>
+                                <option value="admin">Administrateur</option>
+                                <option value="support">Support technique</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="user-password">Mot de passe</label>
+                            <input type="password" class="form-control" id="user-password" required>
+                            <div class="form-text">Minimum 12 caractères, incluant majuscules, minuscules, chiffres et caractères spéciaux</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-password-confirm">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="user-password-confirm" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="user-status">Statut</label>
+                        <select class="form-control" id="user-status" required>
+                            <option value="active">Actif</option>
+                            <option value="pending">En attente</option>
+                            <option value="inactive">Inactif</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-numen">NUMEN</label>
+                        <input type="text" class="form-control" id="user-numen" maxlength="13">
+                        <div class="form-text">Format : 13 caractères alphanumériques</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-add-user">Annuler</button>
+                <button class="btn btn-primary" id="confirm-add-user">Ajouter l'utilisateur</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Modifier l'utilisateur</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-user-form">
+                    <input type="hidden" id="edit-user-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-user-firstname">Prénom</label>
+                            <input type="text" class="form-control" id="edit-user-firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-user-lastname">Nom</label>
+                            <input type="text" class="form-control" id="edit-user-lastname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-user-email">Email académique</label>
+                        <input type="email" class="form-control" id="edit-user-email" required>
+                        <div class="form-text">Format : prenom.nom@ac-academie.fr</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-user-academy">Académie</label>
+                            <select class="form-control" id="edit-user-academy" required>
+                                <option value="">Sélectionner</option>
+                                <option value="aix-marseille">Aix-Marseille</option>
+                                <option value="amiens">Amiens</option>
+                                <option value="besancon">Besançon</option>
+                                <option value="bordeaux">Bordeaux</option>
+                                <option value="clermont">Clermont-Ferrand</option>
+                                <option value="corse">Corse</option>
+                                <option value="creteil">Créteil</option>
+                                <option value="dijon">Dijon</option>
+                                <option value="grenoble">Grenoble</option>
+                                <option value="lille">Lille</option>
+                                <option value="limoges">Limoges</option>
+                                <option value="lyon">Lyon</option>
+                                <option value="montpellier">Montpellier</option>
+                                <option value="nancy-metz">Nancy-Metz</option>
+                                <option value="nantes">Nantes</option>
+                                <option value="nice">Nice</option>
+                                <option value="orleans-tours">Orléans-Tours</option>
+                                <option value="paris">Paris</option>
+                                <option value="poitiers">Poitiers</option>
+                                <option value="reims">Reims</option>
+                                <option value="rennes">Rennes</option>
+                                <option value="rouen">Rouen</option>
+                                <option value="strasbourg">Strasbourg</option>
+                                <option value="toulouse">Toulouse</option>
+                                <option value="versailles">Versailles</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-user-role">Rôle</label>
+                            <select class="form-control" id="edit-user-role" required>
+                                <option value="">Sélectionner</option>
+                                <option value="enseignant">Enseignant</option>
+                                <option value="gestionnaire">Gestionnaire</option>
+                                <option value="admin">Administrateur</option>
+                                <option value="support">Support technique</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-user-status">Statut</label>
+                        <select class="form-control" id="edit-user-status" required>
+                            <option value="active">Actif</option>
+                            <option value="pending">En attente</option>
+                            <option value="inactive">Inactif</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-user-numen">NUMEN</label>
+                        <input type="text" class="form-control" id="edit-user-numen" maxlength="13">
+                        <div class="form-text">Format : 13 caractères alphanumériques</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-edit-user">Annuler</button>
+                <button class="btn btn-primary" id="confirm-edit-user">Enregistrer les modifications</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="delete-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Supprimer l'utilisateur</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.</p>
+                <p><strong>ID utilisateur :</strong> <span id="delete-user-id"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-delete-user">Annuler</button>
+                <button class="btn btn-danger" id="confirm-delete-user">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/admin-dashboard.js"></script>
+</body>
+</html>

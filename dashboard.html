@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Prof - Tableau de bord</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marianne:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+<body>
+    <!-- Header dashboard -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogowik.com%2Fcontent%2Fuploads%2Fimages%2Fministere-de-leducation-nationale-et-de-la-jeunesse6395.logowik.com.webp&f=1&nofb=1&ipt=b1ed3ee914e44a2e9529ee1663fffe723475d403a9d250cb40515d42761a9820" alt="Logo Ministère de l'Éducation nationale" class="logo">
+                    <div class="site-title">
+                        <h1>I-Prof</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-notifications">
+                    <a href="#" class="notification-icon" id="notif-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </a>
+                    <div class="notification-dropdown" id="notif-dropdown">
+                        <h4>Notifications</h4>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="notification-content">
+                                <p>Votre attestation de formation est disponible</p>
+                                <span class="notification-time">Il y a 2 heures</span>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="notification-content">
+                                <p>Votre avis de promotion a été validé</p>
+                                <span class="notification-time">Hier</span>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="notification-content">
+                                <p>Nouveau message de votre gestionnaire académique</p>
+                                <span class="notification-time">Il y a 3 jours</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">Voir toutes les notifications</a>
+                    </div>
+                </div>
+                <div class="header-messages">
+                    <a href="#" class="message-icon" id="msg-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="message-badge">2</span>
+                    </a>
+                    <div class="message-dropdown" id="msg-dropdown">
+                        <h4>Messages</h4>
+                        <div class="message-item unread">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Nicole Dupont</h5>
+                                <p>Confirmation de votre demande de formation...</p>
+                                <span class="message-time">10:23</span>
+                            </div>
+                        </div>
+                        <div class="message-item unread">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Michel Laurent</h5>
+                                <p>Suite à votre demande concernant votre avancement...</p>
+                                <span class="message-time">Hier</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">Voir tous les messages</a>
+                    </div>
+                </div>
+                <div class="user-menu">
+                    <a href="#" class="user-menu-btn" id="user-btn">
+                        <div class="user-avatar">
+                            <img src="./photo-moi.jpg" alt="Photo de profil">
+                        </div>
+                        <div class="user-info">
+                            <h4>Ponche Maxence</h4>
+                            <p>Professeure certifiée</p>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <ul>
+                            <li><a href="#" data-section="profile"><i class="fas fa-user"></i> Mon profil</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Aide</a></li>
+                            <li><a href="index.html" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal du dashboard -->
+    <div class="dashboard-container">
+        <!-- Sidebar navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Menu</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" class="nav-link" data-section="dashboard-home">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="profile">
+                            <i class="fas fa-user"></i>
+                            <span>Mon dossier</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="career">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Carrière</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="training">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Formation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="mobility">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Mobilité</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="messaging">
+                            <i class="fas fa-envelope"></i>
+                            <span>Messagerie</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="support-widget">
+                    <h4>Besoin d'aide ?</h4>
+                    <p>Notre équipe est à votre disposition</p>
+                    <a href="#" class="btn btn-outline btn-block">Contacter le support</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="dashboard-content">
+            <!-- Section du tableau de bord principal -->
+            <section id="dashboard-home" class="dashboard-section active-section">
+                <div class="content-header">
+                    <h2>Bienvenue, Ponche Maxence</h2>
+                    <p>Dernière connexion : Aujourd'hui à 09:15</p>
+                </div>
+
+                <div class="welcome-banner">
+                    <div class="banner-content">
+                        <h3>Nouvelles fonctionnalités disponibles</h3>
+                        <p>Découvrez les nouvelles fonctionnalités d'I-Prof pour simplifier vos démarches administratives.</p>
+                        <a href="#" class="btn btn-light">Découvrir</a>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h4>Échelon actuel</h4>
+                            <p class="stats-value">7<sup>ème</sup></p>
+                            <p class="stats-text">Depuis le 01/09/2024</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h4>Ancienneté</h4>
+                            <p class="stats-value">12 ans</p>
+                            <p class="stats-text">Dans l'Éducation nationale</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h4>Formations suivies</h4>
+                            <p class="stats-value">8</p>
+                            <p class="stats-text">Dont 3 cette année</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <div class="stats-info">
+                            <h4>Demandes en cours</h4>
+                            <p class="stats-value">2</p>
+                            <p class="stats-text">En attente de validation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card timeline-card">
+                        <div class="card-header">
+                            <h3>Calendrier de carrière</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item past">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Avancement au 7<sup>ème</sup> échelon</h4>
+                                        <p>01/09/2024</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item current">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Rendez-vous de carrière</h4>
+                                        <p>15/06/2025</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item future">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Éligibilité 8<sup>ème</sup> échelon</h4>
+                                        <p>01/09/2026 (prévisionnel)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card notifications-card">
+                        <div class="card-header">
+                            <h3>Notifications récentes</h3>
+                            <a href="#" class="card-link">Tout voir</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="notification-list">
+                                <div class="notification-item">
+                                    <div class="notification-icon"><i class="fas fa-file-alt"></i></div>
+                                    <div class="notification-content">
+                                        <h4>Attestation de formation disponible</h4>
+                                        <p>Formation "Pédagogie différenciée" - 12h</p>
+                                        <span class="notification-time">Il y a 2 heures</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon"><i class="fas fa-chart-line"></i></div>
+                                    <div class="notification-content">
+                                        <h4>Validation de votre promotion</h4>
+                                        <p>Avancement au 7ème échelon validé</p>
+                                        <span class="notification-time">Hier</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="notification-content">
+                                        <h4>Nouveau message reçu</h4>
+                                        <p>De la part de votre gestionnaire académique</p>
+                                        <span class="notification-time">Il y a 3 jours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card actions-card">
+                        <div class="card-header">
+                            <h3>Actions rapides</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions">
+                                <a href="#" class="quick-action-btn">
+                                    <i class="fas fa-file-download"></i>
+                                    <span>Télécharger mon CV I-Prof</span>
+                                </a>
+                                <a href="#" class="quick-action-btn">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    <span>Demander une formation</span>
+                                </a>
+                                <a href="#" class="quick-action-btn">
+                                    <i class="fas fa-pen"></i>
+                                    <span>Mettre à jour mes coordonnées</span>
+                                </a>
+                                <a href="#" class="quick-action-btn">
+                                    <i class="fas fa-print"></i>
+                                    <span>Imprimer une attestation</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card chart-card">
+                        <div class="card-header">
+                            <h3>Évolution de carrière</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="career-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Profil -->
+            <section id="profile" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Mon dossier professionnel</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-print"></i> Imprimer</button>
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Modifier</button>
+                    </div>
+                </div>
+
+                <div class="profile-overview">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="./photo-moi.jpg" alt="Photo de profil">
+                        </div>
+                        <div class="profile-info">
+                            <h3>Ponche Maxence</h3>
+                            <p class="profile-title">Professeure certifiée - NSI</p>
+                            <div class="profile-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Académie de Guadeloupe</span>
+                                <span><i class="fas fa-building"></i> Collège Olympe Rame Decorbin, Douville</span>
+                                <span><i class="fas fa-id-card"></i> NUMEN: 12AB34CD56EF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-content">
+                    <div class="profile-nav">
+                        <ul class="tabs">
+                            <li class="active"><a href="#personal-info">Informations personnelles</a></li>
+                            <li><a href="#professional-info">Situation professionnelle</a></li>
+                            <li><a href="#qualifications">Diplômes et qualifications</a></li>
+                            <li><a href="#history">Historique</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="personal-info" class="tab-pane active">
+                            <div class="info-section">
+                                <h4>État civil</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Nom</label>
+                                        <p>Ponche</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Prénom</label>
+                                        <p>Maxence</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Date de naissance</label>
+                                        <p>17/11/2009</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Lieu de naissance</label>
+                                        <p>Gassin (96)</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Nationalité</label>
+                                        <p>Française</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Numéro de sécurité sociale</label>
+                                        <p>1 09 11 83 123 456 78</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Coordonnées</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Adresse</label>
+                                        <p>14 Rue Louis Constant Flemings</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Complément</label>
+                                        <p>Maison 3</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Code postal</label>
+                                        <p>97150</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Ville</label>
+                                        <p>Marigot</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Téléphone personnel</label>
+                                        <p>06 90 98 13 15</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Email personnel</label>
+                                        <p>maxenceponche971@gmail.com</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Email académique</label>
+                                        <p>maxenceponche@ac-guadeloupe.fr</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="professional-info" class="tab-pane">
+                            <div class="info-section">
+                                <h4>Affectation actuelle</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Établissement</label>
+                                        <p>Collège Olympe Rame Decorbin, Douville</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Académie</label>
+                                        <p>Guadeloupe</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Adresse</label>
+                                        <p>14 Rue Louis Constant Fleming, Marigot 97150</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Position administrative</label>
+                                        <p>Activité</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Date de prise de poste</label>
+                                        <p>01/09/2020</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Type de poste</label>
+                                        <p>Poste fixe</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Situation professionnelle</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Corps</label>
+                                        <p>Professeur certifié</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Discipline</label>
+                                        <p>Numérique et sciences informatiques</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Date d'entrée dans la fonction publique</label>
+                                        <p>01/09/2013</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Grade</label>
+                                        <p>Classe normale</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Échelon</label>
+                                        <p>7ème échelon</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Date d'effet de l'échelon</label>
+                                        <p>01/09/2024</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Indice majoré</label>
+                                        <p>534</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Ancienneté dans l'échelon</label>
+                                        <p>8 mois</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Services</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Service hebdomadaire</label>
+                                        <p>18 heures</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Heures supplémentaires</label>
+                                        <p>2 HSA</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Autres fonctions</label>
+                                        <p>Professeure principale (4ème B)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="qualifications" class="tab-pane">
+                            <div class="info-section">
+                                <h4>Diplômes universitaires</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Master MEEF</label>
+                                        <p>Université des Antilles (2013)</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Master en Numérique et sciences informatiques</label>
+                                        <p>Université Antilles, Campus du Camp Jacob (2011)</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Licence de Numérique</label>
+                                        <p>Université Antilles, Campus du Camp Jacob (2009)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Concours</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>CAPES de NSI</label>
+                                        <p>Admis en 2013 (rang: 1)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Certifications complémentaires</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>DNL Anglais</label>
+                                        <p>Obtenue en 2019</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>CAFFA (Certificat d'Aptitude aux Fonctions de Formateur Académique)</label>
+                                        <p>En cours (admissibilité obtenue)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Langues étrangères</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Anglais</label>
+                                        <p>Niveau C1 - TOEIC 915 points (2018)</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Espagnol</label>
+                                        <p>Niveau B1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="history" class="tab-pane">
+                            <div class="info-section">
+                                <h4>Historique des affectations</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>2020 - Présent</label>
+                                        <p>Collège Olympe Rame Decorbin, Saint-Anne</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>2016 - 2020</label>
+                                        <p>Collège Edmond Bambuck, Gosier</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>2014 - 2016</label>
+                                        <p>Collège Général de Gaulle, Le Moule</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>2013 - 2014</label>
+                                        <p>Lycée Yves-Leborgne Sainte-Anne, Saint-Anne</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Historique des échelons</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>7ème échelon</label>
+                                        <p>Depuis le 01/09/2024</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>6ème échelon</label>
+                                        <p>Du 01/09/2021 au 31/08/2024</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>5ème échelon</label>
+                                        <p>Du 01/09/2019 au 31/08/2021</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>4ème échelon</label>
+                                        <p>Du 01/09/2017 au 31/08/2019</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>3ème échelon</label>
+                                        <p>Du 01/09/2015 au 31/08/2017</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>2ème échelon</label>
+                                        <p>Du 01/09/2014 au 31/08/2015</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>1er échelon</label>
+                                        <p>Du 01/09/2013 au 31/08/2014</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>Rendez-vous de carrière</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>3ème RDV de carrière (prévu)</label>
+                                        <p>15/06/2025</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>2ème RDV de carrière</label>
+                                        <p>10/03/2021 - Évaluation: Excellent</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>1er RDV de carrière</label>
+                                        <p>05/02/2017 - Évaluation: Très satisfaisant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Carrière -->
+            <section id="career" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Ma carrière</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Exporter</button>
+                    </div>
+                </div>
+
+                <div class="career-content">
+                    <div class="career-card">
+                        <div class="card-header">
+                            <h3>Situation actuelle</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Grade</label>
+                                    <p>Classe normale</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Échelon</label>
+                                    <p>7ème échelon</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Date d'effet</label>
+                                    <p>01/09/2024</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Mode d'accès</label>
+                                    <p>Ancienneté</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Indice majoré</label>
+                                    <p>534</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Prochain échelon</label>
+                                    <p>8ème échelon (prévu 09/2026)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="career-card">
+                        <div class="card-header">
+                            <h3>Rendez-vous de carrière à venir</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Date prévue</label>
+                                    <p>15/06/2025</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Type</label>
+                                    <p>3ème rendez-vous de carrière (échelon 9)</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Inspecteur</label>
+                                    <p>En attente de désignation</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Évaluation</label>
+                                    <p>À venir</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <a href="#" class="btn btn-outline"><i class="fas fa-info-circle"></i> Guide du rendez-vous de carrière</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="career-card">
+                        <div class="card-header">
+                            <h3>Progression de carrière</h3>
+                        </div>
+                        <div class="card-body career-progress">
+                            <div class="progress-step">
+                                <div class="step-number">1</div>
+                                <div class="step-info">
+                                    <h5>1er échelon</h5>
+                                    <p>01/09/2013 - 31/08/2014 (1 an)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">2</div>
+                                <div class="step-info">
+                                    <h5>2ème échelon</h5>
+                                    <p>01/09/2014 - 31/08/2015 (1 an)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">3</div>
+                                <div class="step-info">
+                                    <h5>3ème échelon</h5>
+                                    <p>01/09/2015 - 31/08/2017 (2 ans)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">4</div>
+                                <div class="step-info">
+                                    <h5>4ème échelon</h5>
+                                    <p>01/09/2017 - 31/08/2019 (2 ans)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">5</div>
+                                <div class="step-info">
+                                    <h5>5ème échelon</h5>
+                                    <p>01/09/2019 - 31/08/2021 (2 ans)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">6</div>
+                                <div class="step-info">
+                                    <h5>6ème échelon</h5>
+                                    <p>01/09/2021 - 31/08/2024 (3 ans)</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-number">7</div>
+                                <div class="step-info">
+                                    <h5>7ème échelon (actuel)</h5>
+                                    <p>Depuis le 01/09/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="career-card">
+                        <div class="card-header">
+                            <h3>Évaluations professionnelles</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-section">
+                                <h4>2ème rendez-vous de carrière (10/03/2021)</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Évaluation globale</label>
+                                        <p>Excellent</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Points forts relevés</label>
+                                        <p>Pédagogie innovante, maîtrise des outils numériques, excellente gestion de classe</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Appréciations</label>
+                                        <p>Enseignante dynamique et investie. Excellente maîtrise des compétences professionnelles.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>1er rendez-vous de carrière (05/02/2017)</h4>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <label>Évaluation globale</label>
+                                        <p>Très satisfaisant</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Points forts relevés</label>
+                                        <p>Bonnes connaissances disciplinaires, relation positive avec les élèves</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Axes de progression</label>
+                                        <p>Différenciation pédagogique à renforcer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Formation -->
+            <section id="training" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Mes formations</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Nouvelle demande</button>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Formations suivies récemment</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="training-card">
+                            <div class="training-status completed"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Pédagogie différenciée en mathématiques</h4>
+                                <p class="training-details">Formation axée sur les pratiques de différenciation adaptées à l'enseignement des mathématiques au collège.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> 10-11 mars 2025</span>
+                                    <span><i class="fas fa-clock"></i> 12 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> INSPE de Fouillole</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Attestation</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-status completed"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Usages pédagogiques du numérique</h4>
+                                <p class="training-details">Intégration des outils numériques dans l'enseignement des mathématiques. Niveau avancé.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> 5-7 février 2025</span>
+                                    <span><i class="fas fa-clock"></i> 18 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> INSPE de Fouillole</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Attestation</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-status completed"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Préparation CAFFA (module 2)</h4>
+                                <p class="training-details">Préparation à la certification de formateur académique - Module accompagnement et analyse de pratiques.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> 15-19 janvier 2025</span>
+                                    <span><i class="fas fa-clock"></i> 30 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Rectorat de Guadeloupe</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Attestation</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Formations à venir</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="training-card">
+                            <div class="training-status pending"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Enseignement des mathématiques en langue anglaise (DNL)</h4>
+                                <p class="training-details">Renforcement des compétences pour l'enseignement des mathématiques en section européenne.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> 7-8 juin 2025</span>
+                                    <span><i class="fas fa-clock"></i> 12 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Lycée Yves Leborgne, Saint-Anne</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-times"></i> Annuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Demandes en cours</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="training-card">
+                            <div class="training-status"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Préparation CAFFA (module 3)</h4>
+                                <p class="training-details">Préparation à la certification de formateur académique - Module conception et animation de formation.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> Session septembre 2025</span>
+                                    <span><i class="fas fa-clock"></i> 30 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Rectorat de Guadeloupe</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-eye"></i> Suivi de la demande</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="training-card">
+                            <div class="training-status"></div>
+                            <div class="training-content">
+                                <h4 class="training-title">Intelligence artificielle et enseignement des mathématiques</h4>
+                                <p class="training-details">Introduction aux outils d'IA pour l'enseignement et perspectives pédagogiques pour la discipline.</p>
+                                <div class="training-meta">
+                                    <span><i class="fas fa-calendar-alt"></i> Session octobre 2025</span>
+                                    <span><i class="fas fa-clock"></i> 18 heures</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> INSPE de Fouillole</span>
+                                </div>
+                                <div class="training-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-eye"></i> Suivi de la demande</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Mobilité -->
+            <section id="mobility" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Mobilité</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Nouvelle demande</button>
+                    </div>
+                </div>
+
+                <div class="mobility-card">
+                    <div class="card-header">
+                        <h3>Calendrier du mouvement 2025-2026</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-item past">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Ouverture du serveur SIAM (phase inter-académique)</h4>
+                                    <p>16 novembre 2024</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item past">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Fermeture du serveur SIAM (phase inter-académique)</h4>
+                                    <p>7 décembre 2024</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item past">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Date limite de dépôt des dossiers médicaux</h4>
+                                    <p>18 décembre 2024</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item current">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Affichage des barèmes et période de contestation</h4>
+                                    <p>22 mai - 5 juin 2025</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item future">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Résultats du mouvement intra-académique</h4>
+                                    <p>15 juin 2025</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item future">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Phase d'ajustement</h4>
+                                    <p>Juillet 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobility-card">
+                    <div class="card-header">
+                        <h3>Ma demande de mutation intra-académique 2025</h3>
+                    </div>
+                    <div class="card-body mobility-progress">
+                        <h4>Statut de la demande : En attente des résultats</h4>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                        
+                        <div class="progress-stages">
+                            <div class="progress-stage completed">
+                                <div class="stage-dot"></div>
+                                <div class="stage-label">Saisie des vœux</div>
+                            </div>
+                            <div class="progress-stage completed">
+                                <div class="stage-dot"></div>
+                                <div class="stage-label">Confirmation</div>
+                            </div>
+                            <div class="progress-stage completed">
+                                <div class="stage-dot"></div>
+                                <div class="stage-label">Validation barème</div>
+                            </div>
+                            <div class="progress-stage current">
+                                <div class="stage-dot"></div>
+                                <div class="stage-label">Traitement</div>
+                            </div>
+                            <div class="progress-stage">
+                                <div class="stage-dot"></div>
+                                <div class="stage-label">Résultats</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 30px;">Mes vœux</h4>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Vœu 1</label>
+                                <p>Lycée Yves Leborgne, Saint-Anne (97150)</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Vœu 2</label>
+                                <p>Lycée Carnot, Pointe-à-Pitre (97150)</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Vœu 3</label>
+                                <p>Lycée Charles Coëffin, Baie-Mahault (97150)</p>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 30px;">Mon barème</h4>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Ancienneté de service</label>
+                                <p>70 points</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Ancienneté dans le poste</label>
+                                <p>50 points (5 ans)</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Rapprochement de conjoint</label>
+                                <p>150 points</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Enfants à charge</label>
+                                <p>100 points (2 enfants)</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Total</label>
+                                <p>370 points</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobility-card">
+                    <div class="card-header">
+                        <h3>Historique des demandes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-section">
+                            <h4>Mouvement intra-académique 2022</h4>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Résultat</label>
+                                    <p>Mutation obtenue</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Affectation obtenue</label>
+                                    <p>Lycée Yves Leborgne, Saint-Anne (vœu 1)</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Barème</label>
+                                    <p>270 points</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Messagerie -->
+            <section id="messaging" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Messagerie</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Nouveau message</button>
+                    </div>
+                </div>
+
+                <div class="career-content">
+                    <div class="message-list">
+                        <div class="message-preview unread" onclick="showMessage(1)">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Nicole Dupont</h5>
+                                <p>Confirmation de votre demande de formation "Intelligence artificielle et enseignement des mathématiques"</p>
+                                <span class="message-time">10:23 - 21/05/2025</span>
+                            </div>
+                        </div>
+
+                        <div class="message-preview unread" onclick="showMessage(2)">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Michel Laurent</h5>
+                                <p>Suite à votre demande concernant votre avancement d'échelon, j'ai le plaisir de vous informer...</p>
+                                <span class="message-time">16:42 - 20/05/2025</span>
+                            </div>
+                        </div>
+
+                        <div class="message-preview" onclick="showMessage(3)">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/35.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Christine Moreau</h5>
+                                <p>Préparation du rendez-vous de carrière - Documents à préparer</p>
+                                <span class="message-time">09:15 - 15/05/2025</span>
+                            </div>
+                        </div>
+
+                        <div class="message-preview" onclick="showMessage(4)">
+                            <div class="message-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Avatar">
+                            </div>
+                            <div class="message-content">
+                                <h5>Philippe Garcia</h5>
+                                <p>Confirmation d'inscription au séminaire "Mathématiques et intelligence artificielle"</p>
+                                <span class="message-time">14:30 - 10/05/2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-body" id="message-view" style="display: none;">
+                        <div class="message-header">
+                            <div class="message-sender">
+                                <div class="message-sender-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Avatar">
+                                </div>
+                                <div class="message-sender-info">
+                                    <h4>Nicole Dupont</h4>
+                                    <p>Gestionnaire de formation - DAFPEN</p>
+                                </div>
+                            </div>
+                            <div class="message-date">21/05/2025 - 10:23</div>
+                        </div>
+                        <div class="message-text">
+                            <p>Bonjour Madame Martin,</p>
+                            <br>
+                            <p>J'ai le plaisir de vous confirmer l'enregistrement de votre candidature à la formation "Intelligence artificielle et enseignement des mathématiques" prévue en octobre 2025.</p>
+                            <br>
+                            <p>Votre demande a bien été prise en compte et sera examinée lors de la prochaine commission d'attribution des places qui se tiendra le 30 juin prochain.</p>
+                            <br>
+                            <p>Vous serez informée des suites données à votre candidature avant mi-juillet 2025.</p>
+                            <br>
+                            <p>Je reste à votre disposition pour tout complément d'information.</p>
+                            <br>
+                            <p>Bien cordialement,</p>
+                            <br>
+                            <p>Nicole Dupont<br>
+                            Gestionnaire de formation<br>
+                            DAFPEN - Académie de Versailles<br>
+                            01.XX.XX.XX.XX</p>
+                        </div>
+                        <div class="message-actions">
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-reply"></i> Répondre</button>
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-trash"></i> Supprimer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Documents -->
+            <section id="documents" class="dashboard-section">
+                <div class="content-header">
+                    <h2>Mes documents</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-upload"></i> Importer</button>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Documents administratifs</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="documents-grid">
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <h4 class="document-title">Arrêté d'échelon</h4>
+                                <p class="document-info">7ème échelon - 01/09/2024</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h4 class="document-title">Arrêté d'affectation</h4>
+                                <p class="document-info">Collège Jean Moulin - 01/09/2020</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                                <h4 class="document-title">Procès verbal d'installation</h4>
+                                <p class="document-info">Collège Jean Moulin - 01/09/2020</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <h4 class="document-title">Dernier bulletin de paie</h4>
+                                <p class="document-info">Mai 2025</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Attestations de formation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="documents-grid">
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-certificate"></i>
+                                </div>
+                                <h4 class="document-title">Pédagogie différenciée</h4>
+                                <p class="document-info">Mars 2025 - 12h</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-certificate"></i>
+                                </div>
+                                <h4 class="document-title">Usages pédagogiques du numérique</h4>
+                                <p class="document-info">Février 2025 - 18h</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-certificate"></i>
+                                </div>
+                                <h4 class="document-title">Préparation CAFFA module 2</h4>
+                                <p class="document-info">Janvier 2025 - 30h</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-certificate"></i>
+                                </div>
+                                <h4 class="document-title">Enseignement mathématiques en DNL</h4>
+                                <p class="document-info">Avril 2024 - 18h</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Comptes-rendus de rendez-vous de carrière</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="documents-grid">
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-signature"></i>
+                                </div>
+                                <h4 class="document-title">2ème rendez-vous de carrière</h4>
+                                <p class="document-info">Mars 2021</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-signature"></i>
+                                </div>
+                                <h4 class="document-title">1er rendez-vous de carrière</h4>
+                                <p class="document-info">Février 2017</p>
+                                <div class="document-actions">
+                                    <a href="#" class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Télécharger</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>
